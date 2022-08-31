@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [MessageService],
 })
 export class LoginComponent implements OnInit {
   // Fields
-  email: string = 'test@email.com';
+  email: string = 'dmjohnspor@gmail.com';
   password: string = 'test';
   invalidEmail: boolean = false;
   invalidPassword: boolean = false;
@@ -17,23 +17,28 @@ export class LoginComponent implements OnInit {
   passwordErrorMessage: string = 'Invalid password';
 
   // Constructor
-  constructor(private messageService: MessageService) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   // Methods
   ngOnInit(): void {}
 
   // Handles the submission  and validation of login data
   handleLogin() {
-    if (this.email === 'test@email.com') {
+    if (this.authService.authenticateEmail(this.email)) {
       this.invalidEmail = false;
     } else {
       this.invalidEmail = true;
     }
 
-    if (this.password === 'test') {
+    if (this.authService.authenticatePassword(this.password)) {
       this.invalidPassword = false;
     } else {
       this.invalidPassword = true;
+    }
+
+    if (this.invalidEmail === false && this.invalidPassword === false) {
+      this.authService.authenticateUser(this.email, this.password);
+      this.router.navigate(['user', this.email]);
     }
   }
 }
