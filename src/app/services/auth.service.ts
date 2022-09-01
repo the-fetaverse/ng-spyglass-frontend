@@ -32,4 +32,8 @@ export class AuthService {
     let user = sessionStorage.getItem('authenticatedUser');
     return !(user === null);
   }
+
+  logout(): void {
+    sessionStorage.removeItem('authenticatedUser');
+  }
 }

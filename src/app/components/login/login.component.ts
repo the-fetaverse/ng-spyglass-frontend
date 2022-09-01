@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
 
     if (this.invalidEmail === false && this.invalidPassword === false) {
       this.authService.authenticateUser(this.email, this.password);
-      this.router.navigate(['user', this.email]);
+      this.router.navigate(['user', this.email, 'goals']);
     }
   }
 }

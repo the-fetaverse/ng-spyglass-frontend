@@ -26,11 +26,33 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span class="logo">Spyglass</span>
-      <a *ngIf="!authService.isUserLoggedIn()" routerLink="/login">Login</a>
+      <!-- Link to login -->
+      <a *ngIf="!authService.isUserLoggedIn()" routerLink="login">Login</a>
+
+      <!-- Spacer -->
       <span class="spacer"></span>
-      <a *ngIf="authService.isUserLoggedIn()" href="">View Goals</a>
-      <a *ngIf="authService.isUserLoggedIn()" href="">Add Goals</a>
-      <a *ngIf="authService.isUserLoggedIn()" href="">Logout</a>
+
+      <!-- Link to View Goals -->
+      <a
+        *ngIf="authService.isUserLoggedIn()"
+        [routerLink]="['/user', email, 'goals']"
+        >View Goals</a
+      >
+
+      <!-- Link to Add Goals -->
+      <a
+        *ngIf="authService.isUserLoggedIn()"
+        [routerLink]="['user', email, 'goals', 'add']"
+        >Add Goals</a
+      >
+
+      <!-- Link to Logout -->
+      <a
+        *ngIf="authService.isUserLoggedIn()"
+        (click)="handleLogout()"
+        routerLink="/login"
+        >Logout</a
+      >
     </mat-toolbar>
     <!-- Add Content Here -->
     <ng-content></ng-content>

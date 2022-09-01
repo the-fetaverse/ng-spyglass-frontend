@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
+  email: string = 'dmjohnspor@gmail.com';
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
@@ -21,4 +22,8 @@ export class NavbarComponent {
     private breakpointObserver: BreakpointObserver,
     public authService: AuthService
   ) {}
+
+  handleLogout() {
+    this.authService.logout();
+  }
 }
