@@ -4,71 +4,72 @@
 
   <!-- 6 size column with login card -->
   <div class="col-6">
-    <p-card>
-      <ng-template pTemplate="header">
-        <div class="title">
-          <h3>Login</h3>
-        </div>
-      </ng-template>
-      <!-- User email input -->
-      <div class="grid p-fluid">
-        <div class="col-12">
-          <div class="p-inputgroup">
-            <span class="p-inputgroup-addon"><i class="pi pi-at"></i></span>
-            <span class="p-float-label">
-              <input
-                id="email-input"
-                type="email"
-                [(ngModel)]="email"
-                pInputText
-              />
-              <label for="email-input">Email</label>
-            </span>
-          </div>
-          <small class="p-error" *ngIf="invalidEmail"
-            >{{ emailErrorMessage }}.</small
-          >
-        </div>
+    <ng-template pTemplate="header">
+      <div class="title">
+        <h3>Login</h3>
       </div>
+    </ng-template>
+    <!-- User email input -->
+    <div class="grid p-fluid">
+      <div class="col-12">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon"><i class="pi pi-at"></i></span>
+          <span class="p-float-label">
+            <input
+              id="email-input"
+              type="email"
+              [(ngModel)]="email"
+              pInputText
+            />
+            <label for="email-input">Email</label>
+          </span>
+        </div>
+        <small class="p-error" *ngIf="invalidEmail"
+          >{{ emailErrorMessage }}.</small
+        >
+      </div>
+    </div>
 
-      <!-- User password input -->
-      <div class="grid p-fluid">
-        <div class="col-12">
-          <div class="p-inputgroup">
-            <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
-            <span class="p-float-label">
-              <input
-                id="password-input"
-                type="password"
-                [(ngModel)]="password"
-                pInputText
-              />
-              <label for="password-input">Password</label>
-            </span>
-          </div>
-          <small *ngIf="invalidPassword" class="p-error"
-            >{{ passwordErrorMessage }}.</small
-          >
+    <!-- User password input -->
+    <div class="grid p-fluid">
+      <div class="col-12">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
+          <span class="p-float-label">
+            <input
+              id="password-input"
+              type="password"
+              [(ngModel)]="password"
+              pInputText
+            />
+            <label for="password-input">Password</label>
+          </span>
         </div>
+        <small *ngIf="invalidPassword" class="p-error"
+          >{{ passwordErrorMessage }}.</small
+        >
       </div>
-      <ng-template pTemplate="footer">
-        <button
-          pButton
-          pRipple
-          type="button"
-          label="Primary"
-          class="p-button-raised"
-          (click)="handleLogin()"
-        ></button>
-        <button
-          pButton
-          pRipple
-          type="button"
-          label="Secondary"
-          class="p-button-raised p-button-secondary"
-        ></button>
-      </ng-template>
-    </p-card>
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      label="Primary"
+      class="p-button-raised"
+      (click)="handleLogin()"
+    >
+      Login
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      type="button"
+      label="Secondary"
+      class="p-button-raised p-button-secondary"
+    >
+      Signup
+    </button>
   </div>
 
   <!-- Empty 3-size column -->
