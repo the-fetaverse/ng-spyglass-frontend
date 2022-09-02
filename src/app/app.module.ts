@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule } from '@angular/common/http';
 
 //Angular Components
 import { AppComponent } from './app.component';
@@ -23,6 +24,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { MatListModule } from '@angular/material/list';
     FormsModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
+    HttpClientModule,
 
     MatTableModule,
     MatSortModule,
@@ -48,6 +51,7 @@ import { MatListModule } from '@angular/material/list';
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
