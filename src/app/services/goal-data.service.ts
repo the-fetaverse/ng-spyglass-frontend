@@ -14,4 +14,8 @@ export class GoalDataService {
   getAllGoals(username: string): Observable<Goal[]> {
     return this.http.get<Goal[]>(`${this.url}${username}/goals`);
   }
+
+  deleteGoal(username: string, id: number): Observable<Goal> {
+    return this.http.delete<Goal>(`${this.url}${username}/goals/${id}`);
+  }
 }

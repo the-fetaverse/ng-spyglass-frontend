@@ -15,6 +15,7 @@ export class GoalsViewComponent implements OnInit {
   // Fields
   username: string = '';
   goals: Goal[] = [];
+  message: string = '';
   dataSource!: MatTableDataSource<GoalInterface>;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -31,7 +32,15 @@ export class GoalsViewComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private goalService: GoalDataService
-  ) {
+  ) {}
+
+  // Methods
+  ngOnInit(): void {
+    this.username = this.route.snapshot.params['email'];
+    this.getAllGoals();
+  }
+
+  getAllGoals() {
     this.goalService.getAllGoals('dmjohnspor@gmail.com').subscribe((res) => {
       console.log(res);
       this.goals = res;
@@ -40,8 +49,11 @@ export class GoalsViewComponent implements OnInit {
     });
   }
 
-  // Methods
-  ngOnInit(): void {
-    this.username = this.route.snapshot.params['email'];
+  handleDelete(id: number) {
+    this.goalService.deleteGoal('dmjohnspor@gmail.com', id).subscribe((res) => {
+      console.log(res);
+      this.message = 'Goal deleted';
+      this.getAllGoals();
+    });
   }
 }
