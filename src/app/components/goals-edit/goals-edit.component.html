@@ -1,0 +1,95 @@
+<h2 mat-dialog-title>Update your Goal</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <!-- Name input -->
+  <mat-form-field
+    floatLabel="always"
+    hideRequiredMarker="true"
+    appearance="outline"
+  >
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" required />
+  </mat-form-field>
+  <br />
+
+  <!-- Description input -->
+  <mat-form-field
+    floatLabel="always"
+    hideRequiredMarker="true"
+    appearance="outline"
+  >
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description" required></textarea>
+  </mat-form-field>
+  <br />
+
+  <!-- Starting Date input (current date) -->
+  <mat-form-field
+    class="input"
+    floatLabel="always"
+    hideRequiredMarker="true"
+    appearance="outline"
+  >
+    <mat-label>Start Date</mat-label>
+    <input
+      matInput
+      [matDatepicker]="currentDatePicker"
+      formControlName="starting_date"
+    />
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="currentDatePicker"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #currentDatePicker></mat-datepicker>
+  </mat-form-field>
+
+  <!-- Target Date input  -->
+  <mat-form-field
+    class="input"
+    floatLabel="always"
+    hideRequiredMarker="true"
+    appearance="outline"
+  >
+    <mat-label>Target Date</mat-label>
+    <input
+      matInput
+      [matDatepicker]="targetDatePicker"
+      [min]="minDate"
+      formControlName="target_date"
+    />
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="targetDatePicker"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #targetDatePicker></mat-datepicker>
+  </mat-form-field>
+
+  <!-- Current Amount input -->
+  <mat-form-field
+    floatLabel="always"
+    hideRequiredMarker="true"
+    class="input"
+    appearance="outline"
+  >
+    <mat-label>Current Amount</mat-label>
+    <input matInput formControlName="amount_current" required />
+  </mat-form-field>
+
+  <!-- Target Amount input -->
+  <mat-form-field
+    floatLabel="always"
+    hideRequiredMarker="true"
+    class="input"
+    appearance="outline"
+  >
+    <mat-label>Budget</mat-label>
+    <input matInput formControlName="amount_target" required />
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button class="mat-raised-button mat-accent" (click)="onSubmit()">
+    Save
+  </button>
+  <button class="mat-raised-button mat-basic" mat-dialog-close>Close</button>
+</mat-dialog-actions>

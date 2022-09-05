@@ -15,6 +15,18 @@ export class GoalDataService {
     return this.http.get<Goal[]>(`${this.url}${username}/goals`);
   }
 
+  getGoalById(username: string, id: number): Observable<Goal> {
+    return this.http.get<Goal>(`${this.url}${username}/goals/${id}`);
+  }
+
+  saveGoal(username: string, goal: Goal): Observable<Goal> {
+    return this.http.post<Goal>(`${this.url}${username}/goals`, goal);
+  }
+
+  updateGoal(username: string, id: number, goal: Goal): Observable<Goal> {
+    return this.http.put<Goal>(`${this.url}${username}/goals/${id}`, goal);
+  }
+
   deleteGoal(username: string, id: number): Observable<Goal> {
     return this.http.delete<Goal>(`${this.url}${username}/goals/${id}`);
   }
