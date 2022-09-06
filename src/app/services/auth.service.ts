@@ -1,10 +1,28 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() {}
+  constructor(private http: HttpClient) {}
+
+  executeBasicAuth(username: string, password: string) {
+    let basicAuthHeaderString =
+      'Basic ' + window.btoa(username + ':' + password);
+
+    let headers = new HttpHeaders({ Authorization: basicAuthHeaderString });
+
+    return this.http
+      .get<AuthenticationBean>(`http://localhost:8080/basicauth`, { headers })
+      .pipe(
+        map((data) => {
+          sessionStorage.setItem('authenticatedUser', username);
+          return data;
+        })
+      );
+  }
 
   authenticateEmail(email: string): boolean {
     if (email === 'dmjohnspor@gmail.com') {
@@ -36,4 +54,8 @@ export class AuthService {
   logout(): void {
     sessionStorage.removeItem('authenticatedUser');
   }
+}
+
+export class AuthenticationBean {
+  constructor(public message: string) {}
 }

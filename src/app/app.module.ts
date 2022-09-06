@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Material Module
 import { MaterialModule } from './material/material.module';
@@ -18,6 +18,7 @@ import { GoalsViewComponent } from './components/goals-view/goals-view.component
 import { GoalsCreateComponent } from './components/goals-create/goals-create.component';
 import { GoalsEditComponent } from './components/goals-edit/goals-edit.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { HttpInterceptorService } from './services/http-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,13 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     FlexLayoutModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -9,10 +9,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   // Fields
-  email: string = 'dmjohnspor@gmail.com';
-  password: string = 'test';
-  invalidEmail: boolean = false;
-  invalidPassword: boolean = false;
+  username: string = '';
+  password: string = '';
+  invalidLogin: boolean = true;
   emailErrorMessage: string = 'Invalid email';
   passwordErrorMessage: string = 'Invalid password';
 
@@ -24,21 +23,34 @@ export class LoginComponent implements OnInit {
 
   // Handles the submission  and validation of login data
   handleLogin() {
-    if (this.authService.authenticateEmail(this.email)) {
-      this.invalidEmail = false;
-    } else {
-      this.invalidEmail = true;
-    }
+    this.authService.executeBasicAuth(this.username, this.password).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.invalidLogin = false;
+        this.router.navigate(['user', this.username, 'goals']);
+      },
+      error: (error) => {
+        console.error(error);
+        this.invalidLogin = true;
+      },
+      complete: () => console.info('complete'),
+    });
 
-    if (this.authService.authenticatePassword(this.password)) {
-      this.invalidPassword = false;
-    } else {
-      this.invalidPassword = true;
-    }
+    // if (this.authService.authenticateEmail(this.email)) {
+    //   this.invalidEmail = false;
+    // } else {
+    //   this.invalidEmail = true;
+    // }
 
-    if (this.invalidEmail === false && this.invalidPassword === false) {
-      this.authService.authenticateUser(this.email, this.password);
-      this.router.navigate(['user', this.email, 'goals']);
-    }
+    // if (this.authService.authenticatePassword(this.password)) {
+    //   this.invalidPassword = false;
+    // } else {
+    //   this.invalidPassword = true;
+    // }
+
+    // if (this.invalidEmail === false && this.invalidPassword === false) {
+    //   this.authService.authenticateUser(this.email, this.password);
+    //
+    // }
   }
 }

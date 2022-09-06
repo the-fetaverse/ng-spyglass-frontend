@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 const MaterialComponents = [
   MatTableModule,
@@ -31,6 +32,7 @@ const MaterialComponents = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatCardModule,
+  MatGridListModule,
 ];
 
 @NgModule({
