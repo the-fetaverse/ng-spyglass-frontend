@@ -65,12 +65,16 @@ export class GoalsViewComponent implements OnInit {
         dialogConfig.height = '500px';
         dialogConfig.data = res;
 
+        console.log(dialogConfig.data.date_created);
+
         let dialogRef = this.dialog.open(GoalsEditComponent, dialogConfig);
+
         dialogRef.afterClosed().subscribe((res) => {
           this.goalDataService
             .updateGoal('dmjohnspor@gmail.com', id, res)
             .subscribe((res) => {
               this.getAllGoals();
+              console.log(res.date_created);
             });
         });
       });

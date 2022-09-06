@@ -34,7 +34,7 @@
     <input
       matInput
       [matDatepicker]="currentDatePicker"
-      formControlName="starting_date"
+      formControlName="date_created"
     />
     <mat-datepicker-toggle
       matSuffix
@@ -55,7 +55,7 @@
       matInput
       [matDatepicker]="targetDatePicker"
       [min]="minDate"
-      formControlName="target_date"
+      formControlName="date_target"
     />
     <mat-datepicker-toggle
       matSuffix
@@ -91,5 +91,5 @@
   <button class="mat-raised-button mat-accent" (click)="onSubmit()">
     Save
   </button>
-  <button class="mat-raised-button mat-basic" mat-dialog-close>Close</button>
+  <button class="mat-raised-button mat-basic" (click)="onClose()">Close</button>
 </mat-dialog-actions>

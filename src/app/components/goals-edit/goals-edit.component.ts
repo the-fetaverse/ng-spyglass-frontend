@@ -1,13 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Goal } from 'src/app/models/goal.model';
-import { GoalDataService } from 'src/app/services/goal-data.service';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-goals-edit',
@@ -17,10 +12,8 @@ import { GoalDataService } from 'src/app/services/goal-data.service';
 export class GoalsEditComponent implements OnInit {
   form: FormGroup | any;
   minDate = new Date();
-  // id: number = this.modalData.goal_id;
 
   constructor(
-    private goalDataService: GoalDataService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<GoalsEditComponent>,
     @Inject(MAT_DIALOG_DATA) public modalData: Goal
@@ -36,22 +29,27 @@ export class GoalsEditComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      starting_date: ['', [Validators.required]],
-      target_date: ['', Validators.required],
+      date_created: ['', [Validators.required]],
+      date_target: ['', Validators.required],
       amount_current: ['', Validators.required],
       amount_target: ['', Validators.required],
     });
     this.form.patchValue({
       name: this.modalData.name,
       description: this.modalData.description,
-      starting_date: this.modalData.date_created,
-      target_date: this.modalData.date_target,
+      date_created: new Date(this.modalData.date_created),
+      date_target: new Date(this.modalData.date_target),
       amount_current: this.modalData.amount_current,
       amount_target: this.modalData.amount_target,
     });
   }
 
   onSubmit() {
+    console.log(this.form.value.date_target);
     this.dialogRef.close(this.form.value);
+  }
+
+  onClose() {
+    this.dialogRef.close();
   }
 }
