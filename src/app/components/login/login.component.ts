@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserDataService } from 'src/app/services/user-data.service';
+import * as bcrypt from 'bcryptjs';
+import {
+  MatSnackBar,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -9,36 +15,53 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   // Fields
-  email: string = 'dmjohnspor@gmail.com';
-  password: string = 'test';
-  invalidEmail: boolean = false;
-  invalidPassword: boolean = false;
+  username: string = '';
+  password: string = '';
+  invalidLogin: boolean = true;
   emailErrorMessage: string = 'Invalid email';
   passwordErrorMessage: string = 'Invalid password';
 
   // Constructor
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private userDataService: UserDataService,
+    private _snackBar: MatSnackBar
+  ) {}
 
   // Methods
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
   ngOnInit(): void {}
 
   // Handles the submission  and validation of login data
   handleLogin() {
-    if (this.authService.authenticateEmail(this.email)) {
-      this.invalidEmail = false;
-    } else {
-      this.invalidEmail = true;
-    }
+    this.userDataService.getUserByUsername(this.username).subscribe((res) => {
+      this.authService
+        .executeBasicAuth(this.username, this.password)
+        .subscribe({
+          next: (data) => {
+            console.log(data);
+            this.invalidLogin = false;
+            this.router.navigate(['user', res.username, 'goals']);
+          },
+          error: (error) => {
+            console.error(error);
+            this.invalidLogin = true;
+            this.openSnackBar('Invalid Credentials', 'close');
+          },
+          complete: () => console.info('complete'),
+        });
+    });
+  }
 
-    if (this.authService.authenticatePassword(this.password)) {
-      this.invalidPassword = false;
-    } else {
-      this.invalidPassword = true;
-    }
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 3000,
+      verticalPosition: this.verticalPosition,
+    });
+  }
 
-    if (this.invalidEmail === false && this.invalidPassword === false) {
-      this.authService.authenticateUser(this.email, this.password);
-      this.router.navigate(['user', this.email, 'goals']);
-    }
+  compareEncryptedPassword(hash: string): boolean {
+    return bcrypt.compareSync(this.password, hash);
   }
 }

@@ -1,0 +1,9 @@
+.card {
+  margin: 50px;
+  max-width: 800px;
+}
+
+.input,
+button {
+  margin-right: 20px;
+}

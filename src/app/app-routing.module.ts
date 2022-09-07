@@ -10,12 +10,12 @@ const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   {
-    path: 'user/:email/goals',
+    path: 'user/:username/goals',
     component: GoalsViewComponent,
     canActivate: [RouteGuardService],
   },
   {
-    path: 'user/:email/goals/add',
+    path: 'user/:username/goals/add',
     component: GoalsCreateComponent,
     canActivate: [RouteGuardService],
   },

@@ -1,43 +1,83 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GOALS } from 'src/app/mockData/goals';
 import { Goal } from 'src/app/models/goal.model';
+import { GoalInterface } from 'src/app/models/goal-interface';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort, Sort } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { GoalDataService } from 'src/app/services/goal-data.service';
+import { GoalsEditComponent } from '../goals-edit/goals-edit.component';
 
 @Component({
   selector: 'app-goals-view',
   templateUrl: './goals-view.component.html',
   styleUrls: ['./goals-view.component.css'],
 })
-export class GoalsViewComponent implements OnInit, AfterViewInit {
+export class GoalsViewComponent implements OnInit {
   // Fields
-  user_name: string = '';
-  goals: Goal[];
-  dataSource: any;
-  @ViewChild(MatSort) sort?: MatSort;
+  username: string = '';
+  goals: Goal[] = [];
+  goal!: Goal;
+  message: string = '';
+  dataSource!: MatTableDataSource<GoalInterface>;
+  @ViewChild(MatSort) sort!: MatSort;
 
   public displayedColumns: string[] = [
     'name',
     'date_target',
     'amount_target',
     'details',
-    'edit',
+    'update',
     'delete',
   ];
 
   // Constructor
-  constructor(private route: ActivatedRoute) {
-    this.goals = GOALS;
-    this.dataSource = new MatTableDataSource(this.goals);
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private goalDataService: GoalDataService,
+    private dialog: MatDialog
+  ) {}
 
   // Methods
   ngOnInit(): void {
-    this.user_name = this.route.snapshot.params['email'];
+    this.username = this.route.snapshot.params['username'];
+    this.getAllGoals();
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
+  getAllGoals() {
+    this.goalDataService.getAllGoals(this.username).subscribe((res) => {
+      this.goals = res;
+      this.dataSource = new MatTableDataSource(this.goals);
+      this.dataSource.sort = this.sort;
+    });
+  }
+
+  handleUpdate(id: number) {
+    this.goalDataService.getGoalById(this.username, id).subscribe((res) => {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      dialogConfig.width = '600px';
+      dialogConfig.height = '500px';
+      dialogConfig.data = res;
+
+      let dialogRef = this.dialog.open(GoalsEditComponent, dialogConfig);
+
+      dialogRef.afterClosed().subscribe((res) => {
+        this.goalDataService
+          .updateGoal(this.username, id, res)
+          .subscribe((res) => {
+            this.getAllGoals();
+          });
+      });
+    });
+  }
+
+  handleDelete(id: number) {
+    this.goalDataService.deleteGoal(this.username, id).subscribe((res) => {
+      console.log(res);
+      this.message = 'Goal deleted';
+      this.getAllGoals();
+    });
   }
 }

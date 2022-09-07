@@ -35,14 +35,14 @@
       <!-- Link to View Goals -->
       <a
         *ngIf="authService.isUserLoggedIn()"
-        [routerLink]="['/user', email, 'goals']"
+        [routerLink]="['/user', username, 'goals']"
         >View Goals</a
       >
 
       <!-- Link to Add Goals -->
       <a
         *ngIf="authService.isUserLoggedIn()"
-        [routerLink]="['user', email, 'goals', 'add']"
+        [routerLink]="['user', username, 'goals', 'add']"
         >Add Goals</a
       >
 
