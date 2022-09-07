@@ -40,53 +40,44 @@ export class GoalsViewComponent implements OnInit {
 
   // Methods
   ngOnInit(): void {
-    this.username = this.route.snapshot.params['email'];
+    this.username = this.route.snapshot.params['username'];
     this.getAllGoals();
   }
 
   getAllGoals() {
-    this.goalDataService
-      .getAllGoals('dmjohnspor@gmail.com')
-      .subscribe((res) => {
-        this.goals = res;
-        this.dataSource = new MatTableDataSource(this.goals);
-        this.dataSource.sort = this.sort;
-      });
+    this.goalDataService.getAllGoals(this.username).subscribe((res) => {
+      this.goals = res;
+      this.dataSource = new MatTableDataSource(this.goals);
+      this.dataSource.sort = this.sort;
+    });
   }
 
   handleUpdate(id: number) {
-    this.goalDataService
-      .getGoalById('dmjohnspor@gmail.com', id)
-      .subscribe((res) => {
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        dialogConfig.width = '600px';
-        dialogConfig.height = '500px';
-        dialogConfig.data = res;
+    this.goalDataService.getGoalById(this.username, id).subscribe((res) => {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      dialogConfig.width = '600px';
+      dialogConfig.height = '500px';
+      dialogConfig.data = res;
 
-        console.log(dialogConfig.data.date_created);
+      let dialogRef = this.dialog.open(GoalsEditComponent, dialogConfig);
 
-        let dialogRef = this.dialog.open(GoalsEditComponent, dialogConfig);
-
-        dialogRef.afterClosed().subscribe((res) => {
-          this.goalDataService
-            .updateGoal('dmjohnspor@gmail.com', id, res)
-            .subscribe((res) => {
-              this.getAllGoals();
-              console.log(res.date_created);
-            });
-        });
+      dialogRef.afterClosed().subscribe((res) => {
+        this.goalDataService
+          .updateGoal(this.username, id, res)
+          .subscribe((res) => {
+            this.getAllGoals();
+          });
       });
+    });
   }
 
   handleDelete(id: number) {
-    this.goalDataService
-      .deleteGoal('dmjohnspor@gmail.com', id)
-      .subscribe((res) => {
-        console.log(res);
-        this.message = 'Goal deleted';
-        this.getAllGoals();
-      });
+    this.goalDataService.deleteGoal(this.username, id).subscribe((res) => {
+      console.log(res);
+      this.message = 'Goal deleted';
+      this.getAllGoals();
+    });
   }
 }

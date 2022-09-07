@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Goal } from 'src/app/models/goal.model';
-import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-goals-edit',
@@ -45,7 +44,6 @@ export class GoalsEditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.value.date_target);
     this.dialogRef.close(this.form.value);
   }
 

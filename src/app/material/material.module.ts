@@ -15,6 +15,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const MaterialComponents = [
   MatTableModule,
@@ -33,6 +34,7 @@ const MaterialComponents = [
   MatNativeDateModule,
   MatCardModule,
   MatGridListModule,
+  MatSnackBarModule,
 ];
 
 @NgModule({
