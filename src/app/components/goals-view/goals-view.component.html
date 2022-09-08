@@ -47,7 +47,11 @@
   <ng-container matColumnDef="details">
     <th mat-header-cell *matHeaderCellDef>Details</th>
     <td mat-cell *matCellDef="let element">
-      <button mat-icon-button color="accent" aria-label="details">
+      <button
+        mat-icon-button
+        color="accent"
+        (click)="handleDetails(element.goal_id)"
+      >
         <mat-icon
           aria-hidden="false"
           aria-label="Menu icon"

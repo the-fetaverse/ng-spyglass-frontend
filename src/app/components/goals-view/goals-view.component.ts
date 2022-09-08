@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { GoalDataService } from 'src/app/services/goal-data.service';
 import { GoalsEditComponent } from '../goals-edit/goals-edit.component';
+import { GoalsDetailsComponent } from '../goals-details/goals-details.component';
 
 @Component({
   selector: 'app-goals-view',
@@ -52,6 +53,18 @@ export class GoalsViewComponent implements OnInit {
     });
   }
 
+  handleDetails(id: number) {
+    this.goalDataService.getGoalById(this.username, id).subscribe((res) => {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.autoFocus = true;
+      dialogConfig.width = '1000px';
+      dialogConfig.height = '700px';
+      dialogConfig.data = res;
+
+      let dialogRef = this.dialog.open(GoalsDetailsComponent, dialogConfig);
+    });
+  }
+
   handleUpdate(id: number) {
     this.goalDataService.getGoalById(this.username, id).subscribe((res) => {
       const dialogConfig = new MatDialogConfig();
@@ -67,6 +80,7 @@ export class GoalsViewComponent implements OnInit {
         this.goalDataService
           .updateGoal(this.username, id, res)
           .subscribe((res) => {
+            console.log(res);
             this.getAllGoals();
           });
       });

@@ -1,0 +1,61 @@
+<h1 mat-dialog-title class="title center">{{ goal.name }}</h1>
+<h4 class="center">{{ goal.description }}</h4>
+<br />
+
+<mat-dialog-content>
+  <div class="grid">
+    <div class="col-4">
+      <mat-card class="date-card">
+        <span>Start Date</span>
+        <div class="cal">
+          <div class="month">
+            {{ goal.date_created | date: "MMM" }},
+            {{ goal.date_created | date: "yyyy" }}
+          </div>
+          <div class="date">{{ goal.date_created | date: "d" }}</div>
+        </div>
+      </mat-card>
+      <br />
+      <mat-card class="date-card">
+        <span>Target Date</span>
+        <div class="cal">
+          <div class="month">
+            {{ goal.date_target | date: "MMM" }},
+            {{ goal.date_target | date: "yyyy" }}
+          </div>
+          <div class="date">{{ goal.date_target | date: "d" }}</div>
+        </div>
+      </mat-card>
+      <br />
+      <mat-card class="date-card">
+        <div class="cal">
+          <div class="month">Days Left</div>
+          <div class="date">{{ daysRemaining }}</div>
+        </div>
+      </mat-card>
+    </div>
+
+    <div class="col-8">
+      <circle-progress
+        [title]="subtitile"
+        [titleColor]="'#FFFFFF'"
+        [titleFontSize]="'50'"
+        [showSubtitle]="false"
+        [percent]="percent"
+        [maxPercent]="200"
+        [radius]="200"
+        [outerStrokeWidth]="16"
+        [innerStrokeWidth]="8"
+        [outerStrokeColor]="'#69F0AE'"
+        [innerStrokeColor]="'#7B1EA2'"
+        [animation]="true"
+        [animationDuration]="300"
+        [showUnits]="false"
+      ></circle-progress>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button class="mat-raised-button mat-basic" mat-dialog-close="">Close</button>
+</mat-dialog-actions>
