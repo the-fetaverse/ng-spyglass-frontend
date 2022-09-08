@@ -17,4 +17,8 @@ export class UserDataService {
   getUsernameFromSessiomStorage() {
     return sessionStorage.getItem('authenticatedUser');
   }
+
+  registerUser(user: User): Observable<User> {
+    return this.http.post<User>(`${API_URL}/register`, user);
+  }
 }

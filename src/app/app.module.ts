@@ -21,6 +21,7 @@ import { GoalsEditComponent } from './components/goals-edit/goals-edit.component
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { GoalsDetailsComponent } from './components/goals-details/goals-details.component';
 import { HttpInterceptorService } from './services/http-interceptor.service';
+import { SignupComponent } from './components/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { HttpInterceptorService } from './services/http-interceptor.service';
     NavbarComponent,
     GoalsEditComponent,
     GoalsDetailsComponent,
+    SignupComponent,
   ],
   entryComponents: [GoalsEditComponent],
   imports: [

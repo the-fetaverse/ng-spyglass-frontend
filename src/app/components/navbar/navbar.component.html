@@ -25,9 +25,16 @@
       >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span class="logo">Spyglass</span>
-      <!-- Link to login -->
-      <a *ngIf="!authService.isUserLoggedIn()" routerLink="login">Login</a>
+      <a
+        *ngIf="authService.isUserLoggedIn(); else elseBlock"
+        [routerLink]="['/user', username, 'goals']"
+        ><img src="../../../assets/logo.png" alt="Image" height="50" />
+      </a>
+      <ng-template #elseBlock>
+        <a [routerLink]="['login']">
+          <img src="../../../assets/logo.png" alt="Image" height="50" />
+        </a>
+      </ng-template>
 
       <!-- Spacer -->
       <span class="spacer"></span>
@@ -52,6 +59,11 @@
         (click)="handleLogout()"
         routerLink="/login"
         >Logout</a
+      >
+
+      <!-- Link to signup -->
+      <a *ngIf="!authService.isUserLoggedIn()" [routerLink]="['signup']"
+        >Signup</a
       >
     </mat-toolbar>
     <!-- Add Content Here -->

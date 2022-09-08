@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   invalidLogin: boolean = true;
   emailErrorMessage: string = 'Invalid email';
   passwordErrorMessage: string = 'Invalid password';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   // Constructor
   constructor(
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   // Methods
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
   ngOnInit(): void {}
 
   // Handles the submission  and validation of login data
@@ -52,6 +53,10 @@ export class LoginComponent implements OnInit {
           complete: () => console.info('complete'),
         });
     });
+  }
+
+  handleSignup() {
+    this.router.navigate(['signup']);
   }
 
   openSnackBar(message: string, action: string) {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GoalDataService } from 'src/app/services/goal-data.service';
+import { UserDataService } from 'src/app/services/user-data.service';
 import { Goal } from 'src/app/models/goal.model';
 
 @Component({
@@ -12,12 +13,13 @@ import { Goal } from 'src/app/models/goal.model';
 export class GoalsCreateComponent implements OnInit {
   form: FormGroup | any;
   minDate = new Date();
-  username = '';
+  username: string | any;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private goalDataService: GoalDataService,
+    private userDataService: UserDataService,
     private route: ActivatedRoute
   ) {
     this.initializeForm();
@@ -59,6 +61,7 @@ export class GoalsCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.username = this.route.snapshot.params['username'];
+    this.username = this.userDataService.getUsernameFromSessiomStorage();
+    console.log(this.username);
   }
 }

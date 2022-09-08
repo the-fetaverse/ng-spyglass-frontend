@@ -4,6 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ErrorComponent } from './components/error/error.component';
 import { GoalsViewComponent } from './components/goals-view/goals-view.component';
 import { GoalsCreateComponent } from './components/goals-create/goals-create.component';
+import { SignupComponent } from './components/signup/signup.component';
 import { RouteGuardService } from './services/route-guard.service';
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
     component: GoalsCreateComponent,
     canActivate: [RouteGuardService],
   },
+  { path: 'signup', component: SignupComponent },
   { path: '**', component: ErrorComponent },
 ];
 

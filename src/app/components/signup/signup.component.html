@@ -1,0 +1,77 @@
+<div class="grid">
+  <div class="col-3"></div>
+  <div class="col-6">
+    <mat-card>
+      <div class="text-center mb-5">
+        <img
+          src="../../../assets/logo.png"
+          alt="spyglass logo"
+          height="50"
+          class="mb-3"
+        />
+        <div class="text-900 text-3xl font-medium mb-3">Sign Up</div>
+        <div>
+          <mat-form-field
+            appearance="outline"
+            hideRequiredMarker="true"
+            class="w-full"
+          >
+            <mat-label>Email</mat-label>
+            <input matInput type="email" [(ngModel)]="email" required />
+          </mat-form-field>
+          <br />
+          <mat-form-field
+            appearance="outline"
+            hideRequiredMarker="true"
+            class="w-full"
+          >
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              type="password"
+              [(ngModel)]="password_1"
+              required
+              minlength="5"
+            />
+          </mat-form-field>
+          <br />
+          <mat-form-field
+            appearance="outline"
+            hideRequiredMarker="true"
+            class="w-full"
+          >
+            <mat-label>Confirm Password</mat-label>
+            <input
+              matInput
+              type="password"
+              [(ngModel)]="password_2"
+              required
+              minlength="5"
+            />
+          </mat-form-field>
+        </div>
+
+        <!-- Buttons -->
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          class="w-full"
+          (click)="handleSignup()"
+        >
+          Sign Up
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          type="button"
+          class="w-full"
+          (click)="handleCancel()"
+        >
+          Cancel
+        </button>
+      </div>
+    </mat-card>
+  </div>
+  <div class="col-3"></div>
+</div>
