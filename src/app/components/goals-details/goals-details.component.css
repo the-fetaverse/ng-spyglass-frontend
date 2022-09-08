@@ -1,0 +1,40 @@
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.cal {
+  display: inline-block;
+  border: 0.1px solid #cccac5;
+  background-color: #fff;
+  width: 150px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.cal .month {
+  height: 50px;
+  line-height: 50px;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  background-color: #69f0ae;
+  color: #585858;
+}
+
+.cal .date {
+  font-size: 2.5rem;
+  color: #585858;
+  line-height: 75px;
+}
+
+.date-card {
+  margin: 0 auto;
+  width: 40%;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+}
+span {
+  font-size: 1rem;
+  font-weight: bold;
+}
