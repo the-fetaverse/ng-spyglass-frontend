@@ -2,12 +2,10 @@ export class User {
   // Fields
   username: string;
   password: string;
-  enabled: boolean;
 
   // Constructor
-  constructor(username: string, password: string, enabled: boolean) {
+  constructor(username: string, password: string) {
     this.username = username;
     this.password = password;
-    this.enabled = enabled;
   }
 }
