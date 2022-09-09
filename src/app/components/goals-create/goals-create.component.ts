@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
+import { Router } from '@angular/router';
 import { GoalDataService } from 'src/app/services/goal-data.service';
 import { UserDataService } from 'src/app/services/user-data.service';
 import { Goal } from 'src/app/models/goal.model';
@@ -12,6 +17,7 @@ import { Goal } from 'src/app/models/goal.model';
 })
 export class GoalsCreateComponent implements OnInit {
   form: FormGroup | any;
+  range: FormGroup | any;
   minDate = new Date();
   username: string | any;
 
@@ -19,8 +25,7 @@ export class GoalsCreateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private goalDataService: GoalDataService,
-    private userDataService: UserDataService,
-    private route: ActivatedRoute
+    private userDataService: UserDataService
   ) {
     this.initializeForm();
   }
@@ -34,6 +39,10 @@ export class GoalsCreateComponent implements OnInit {
       amount_current: ['', Validators.required],
       amount_target: ['', Validators.required],
     });
+    this.range = new FormGroup({
+      start: new FormControl<Date | null>(null),
+      end: new FormControl<Date | null>(null),
+    });
   }
 
   onClose() {
@@ -46,8 +55,8 @@ export class GoalsCreateComponent implements OnInit {
       this.form.value.name,
       this.form.value.description,
       this.username,
-      new Date(this.form.value.starting_date).toISOString(),
-      new Date(this.form.value.target_date).toISOString(),
+      new Date(this.range.value.start).toISOString(),
+      new Date(this.range.value.end).toISOString(),
       this.form.value.amount_current,
       this.form.value.amount_target,
       false
@@ -62,6 +71,5 @@ export class GoalsCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.username = this.userDataService.getUsernameFromSessiomStorage();
-    console.log(this.username);
   }
 }
